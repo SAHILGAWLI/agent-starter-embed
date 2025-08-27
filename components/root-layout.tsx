@@ -1,7 +1,7 @@
 import { Public_Sans } from 'next/font/google';
 import localFont from 'next/font/local';
-import { headers } from 'next/headers';
 import Head from 'next/head';
+import { headers } from 'next/headers';
 import { getAppConfig, getOrigin } from '@/lib/env';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';

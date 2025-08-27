@@ -54,7 +54,7 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
             'absolute inset-0 z-10 rounded-full transition-colors',
             !error &&
               isAgentConnecting &&
-              'bg-fgAccent/30 animate-spin [--color-fgAccent:#38BDF8] [background-image:conic-gradient(from_0deg,transparent_0%,transparent_30%,var(--color-fgAccent)_50%,transparent_70%,transparent_100%)]',
+              'bg-fgAccent/30 animate-spin [background-image:conic-gradient(from_0deg,transparent_0%,transparent_30%,var(--color-fgAccent)_50%,transparent_70%,transparent_100%)] [--color-fgAccent:#38BDF8]',
             // Hide the ring entirely when disconnected; border will be drawn by inner circle shadow
             !error && agentState === 'disconnected' && 'hidden',
             (error || isAgentConnected) && 'bg-destructive-foreground'

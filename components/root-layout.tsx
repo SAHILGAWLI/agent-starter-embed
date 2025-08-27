@@ -1,6 +1,7 @@
 import { Public_Sans } from 'next/font/google';
 import localFont from 'next/font/local';
 import { headers } from 'next/headers';
+import Head from 'next/head';
 import { getAppConfig, getOrigin } from '@/lib/env';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
@@ -55,11 +56,11 @@ export async function RootLayout({ children, className }: RootLayoutProps) {
 
   return (
     <html lang="en" suppressHydrationWarning className={cn('scroll-smooth', className)}>
-      <head>
+      <Head>
         {styles && <style>{styles}</style>}
         <title>{pageTitle}</title>
         <meta name="description" content={pageDescription} />
-      </head>
+      </Head>
       <body
         className={cn(publicSans.variable, commitMono.variable, 'overflow-x-hidden antialiased')}
       >

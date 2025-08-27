@@ -42,7 +42,8 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
         onClick={onToggle}
         className={cn(
           'relative m-0 block size-12 p-0 drop-shadow-md',
-          'bg-transparent hover:bg-transparent focus:bg-transparent focus-visible:ring-0 focus-visible:border-transparent outline-none border-0 hover:border-transparent focus:border-transparent hover:shadow-none focus:shadow-none',
+          // keep wrapper neutral so our custom ring stays consistent
+          'order-0 bg-transparent outline-none hover:border-transparent hover:bg-transparent hover:shadow-none focus:border-transparent focus:bg-transparent focus:shadow-none focus-visible:border-transparent focus-visible:ring-0',
           'scale-100 transition-[scale] duration-300 hover:scale-105 focus:scale-105',
           'fixed right-4 bottom-4 z-50'
         )}
@@ -53,21 +54,16 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
             'absolute inset-0 z-10 rounded-full transition-colors',
             !error &&
               isAgentConnecting &&
-              'bg-fgAccent/30 animate-spin [background-image:conic-gradient(from_0deg,transparent_0%,transparent_30%,var(--color-fgAccent)_50%,transparent_70%,transparent_100%)]',
+              'bg-fgAccent/30 animate-spin [--color-fgAccent:#38BDF8] [background-image:conic-gradient(from_0deg,transparent_0%,transparent_30%,var(--color-fgAccent)_50%,transparent_70%,transparent_100%)]',
             // Hide the ring entirely when disconnected; border will be drawn by inner circle shadow
             !error && agentState === 'disconnected' && 'hidden',
             (error || isAgentConnected) && 'bg-destructive-foreground'
           )}
-          style={
-            !error && isAgentConnecting
-              ? ({ ['--color-fgAccent' as any]: '#38BDF8' } as React.CSSProperties)
-              : undefined
-          }
         />
         {/* inner circle (also draws neon border via outer box-shadow when disconnected) */}
         <div
           className={cn(
-            'absolute z-20 grid place-items-center rounded-full transition-colors overflow-hidden',
+            'absolute z-20 grid place-items-center overflow-hidden rounded-full transition-colors',
             isAgentConnecting ? 'inset-[2px]' : 'inset-0',
             (error || isAgentConnected) && 'bg-destructive'
           )}
@@ -109,7 +105,7 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
               >
                 <div className="flex size-11 items-center justify-center">
                   <span
-                    className="font-extrabold leading-none text-black"
+                    className="leading-none font-extrabold text-black"
                     style={{ fontSize: 32, transform: 'translateY(-1px)' }}
                   >
                     R

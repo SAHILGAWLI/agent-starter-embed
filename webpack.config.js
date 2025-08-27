@@ -32,7 +32,17 @@ module.exports = {
       },
       {
         test: /\.css$/i,
-        use: ['css-loader', 'postcss-loader'],
+        use: [
+          {
+            loader: 'css-loader',
+            options: {
+              // Export CSS content as a string so we can inject it into a <style> tag
+              exportType: 'string',
+              esModule: true,
+            },
+          },
+          'postcss-loader',
+        ],
         exclude: /node_modules/,
       },
     ],

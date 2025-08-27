@@ -15,11 +15,35 @@ export default function useConnectionDetails() {
 
   const fetchConnectionDetails = useCallback(() => {
     setConnectionDetails(null);
-    const url = new URL(
-      process.env.NEXT_PUBLIC_CONN_DETAILS_ENDPOINT ?? '/api/connection-details',
-      window.location.origin
-    );
-    fetch(url.toString())
+    // Determine a safe base origin when embedded on arbitrary sites or file://
+    const findScriptOrigin = () => {
+      const scripts = Array.from(document.getElementsByTagName('script')) as HTMLScriptElement[];
+      const found = scripts.find((s) => s.src.includes('embed-popup.js'));
+      try {
+        return found ? new URL(found.src).origin : undefined;
+      } catch {
+        return undefined;
+      }
+    };
+
+    const defaultOrigin = 'https://replinai-widget.vercel.app';
+    const scriptOrigin = findScriptOrigin();
+    const pageOrigin = typeof window !== 'undefined' ? window.location.origin : undefined;
+    const baseOrigin = scriptOrigin || (pageOrigin && pageOrigin !== 'null' ? pageOrigin : undefined) || defaultOrigin;
+
+    const endpoint = process.env.NEXT_PUBLIC_CONN_DETAILS_ENDPOINT ?? '/api/connection-details';
+    const finalUrl = (() => {
+      try {
+        // If endpoint is absolute, use as-is
+        if (/^https?:\/\//i.test(endpoint)) return new URL(endpoint).toString();
+        // Otherwise, resolve relative to the chosen base origin
+        return new URL(endpoint, baseOrigin).toString();
+      } catch {
+        return new URL('/api/connection-details', defaultOrigin).toString();
+      }
+    })();
+
+    fetch(finalUrl)
       .then((res) => res.json())
       .then((data) => {
         setConnectionDetails(data);

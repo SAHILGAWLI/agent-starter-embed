@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build-embed-popup-script": "webpack",
+    "predev": "pnpm run build-embed-popup-script",
     "prebuild": "pnpm run build-embed-popup-script",
     "build": "next build",
     "start": "next start",

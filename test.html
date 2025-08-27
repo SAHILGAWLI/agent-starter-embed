@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Replin AI Widget + Popup</title>
+    <style>
+      html, body {
+        height: 100%; margin: 0; background: #0b1220;
+        display: grid; place-items: center; font-family: system-ui, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe
+      src="https://replinai-widget.vercel.app/embed?theme=dark"
+      style="width: 320px; height: 64px; border: 0; border-radius: 9999px; overflow: hidden;"
+      allow="microphone; camera; clipboard-write; autoplay"
+      referrerpolicy="strict-origin-when-cross-origin"
+      loading="eager"
+    ></iframe>
+
+    <script src="https://replinai-widget.vercel.app/embed-popup.js" defer></script>
+  </body>
+</html>

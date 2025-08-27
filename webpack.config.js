@@ -10,7 +10,8 @@ module.exports = {
   },
   devtool: 'source-map', // Equivalent to sourcemap: true
   resolve: {
-    alias: { '@/*': path.resolve(__dirname, '*') },
+    // Allow imports like `@/lib/env` to resolve to the project root
+    alias: { '@': path.resolve(__dirname) },
     extensions: ['.tsx', '.ts', '.js'], // Resolve TypeScript and JS files
   },
   plugins: [

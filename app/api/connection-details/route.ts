@@ -21,6 +21,7 @@ export async function GET() {
     if (LIVEKIT_URL === undefined) {
       throw new Error('LIVEKIT_URL is not defined');
     }
+
     if (API_KEY === undefined) {
       throw new Error('LIVEKIT_API_KEY is not defined');
     }
@@ -46,6 +47,10 @@ export async function GET() {
     };
     const headers = new Headers({
       'Cache-Control': 'no-store',
+      // CORS: allow embedding from arbitrary origins
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
     });
     return NextResponse.json(data, { headers });
   } catch (error) {
@@ -54,6 +59,17 @@ export async function GET() {
       return new NextResponse(error.message, { status: 500 });
     }
   }
+}
+
+// CORS preflight handler for cross-origin usage (e.g., when embed-popup.js is used on other sites)
+export async function OPTIONS() {
+  const headers = new Headers({
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Cache-Control': 'no-store',
+  });
+  return new NextResponse(null, { status: 204, headers });
 }
 
 function createParticipantToken(userInfo: AccessTokenOptions, roomName: string) {

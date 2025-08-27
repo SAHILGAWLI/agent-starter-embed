@@ -40,7 +40,19 @@ shadowRoot.appendChild(colorOverrides);
 const reactRoot = document.createElement('div');
 shadowRoot.appendChild(reactRoot);
 
-getAppConfig(window.location.origin)
+// Determine origin from the script that loaded this bundle so config resolves correctly when embedded
+function getScriptOrigin(): string {
+  try {
+    const scripts = Array.from(document.getElementsByTagName('script')) as HTMLScriptElement[];
+    const found = scripts.find((s) => s.src.includes('embed-popup.js'));
+    if (found && found.src) {
+      return new URL(found.src).origin;
+    }
+  } catch {}
+  return window.location.origin;
+}
+
+getAppConfig(getScriptOrigin())
   .then((appConfig) => {
     const root = ReactDOM.createRoot(reactRoot);
     root.render(<EmbedFixedAgentClient appConfig={appConfig} />);

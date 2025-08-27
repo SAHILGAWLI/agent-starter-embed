@@ -41,7 +41,8 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
         }}
         onClick={onToggle}
         className={cn(
-          'relative m-0 block size-12 p-0.5 drop-shadow-md',
+          'relative m-0 block size-12 p-0 drop-shadow-md',
+          'bg-transparent hover:bg-transparent focus:bg-transparent focus-visible:ring-0 focus-visible:border-transparent outline-none border-0 hover:border-transparent focus:border-transparent hover:shadow-none focus:shadow-none',
           'scale-100 transition-[scale] duration-300 hover:scale-105 focus:scale-105',
           'fixed right-4 bottom-4 z-50'
         )}
@@ -53,18 +54,34 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
             !error &&
               isAgentConnecting &&
               'bg-fgAccent/30 animate-spin [background-image:conic-gradient(from_0deg,transparent_0%,transparent_30%,var(--color-fgAccent)_50%,transparent_70%,transparent_100%)]',
-            !error && agentState === 'disconnected' && 'bg-fgAccent',
+            // Hide the ring entirely when disconnected; border will be drawn by inner circle shadow
+            !error && agentState === 'disconnected' && 'hidden',
             (error || isAgentConnected) && 'bg-destructive-foreground'
           )}
+          style={
+            !error && isAgentConnecting
+              ? ({ ['--color-fgAccent' as any]: '#38BDF8' } as React.CSSProperties)
+              : undefined
+          }
         />
-        {/* icon */}
+        {/* inner circle (also draws neon border via outer box-shadow when disconnected) */}
         <div
           className={cn(
-            'relative z-20 grid size-11 place-items-center rounded-full transition-colors',
-            !error && isAgentConnecting && 'bg-bg1',
-            !error && agentState === 'disconnected' && 'bg-fgAccent',
+            'absolute z-20 grid place-items-center rounded-full transition-colors overflow-hidden',
+            isAgentConnecting ? 'inset-[2px]' : 'inset-0',
             (error || isAgentConnected) && 'bg-destructive'
           )}
+          style={
+            !error && (agentState === 'disconnected' || isAgentConnecting)
+              ? {
+                  background:
+                    'radial-gradient(circle at 20% 80%, rgba(255,255,255,0.6), transparent 70%), linear-gradient(135deg, #e7f5ff 0%, #74c0fc 100%)',
+                  boxShadow: isAgentConnecting
+                    ? '0 0 0 2px rgba(56,189,248,0.35)'
+                    : '0 0 0 2px #38BDF8',
+                }
+              : undefined
+          }
         >
           <AnimatePresence>
             {!error && isAgentConnected && (
@@ -84,20 +101,20 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
             )}
             {!error && agentState === 'disconnected' && (
               <motion.div
-                key="lk-logo"
+                key="custom-initial"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: popupOpen ? 20 : -20 }}
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
               >
-                <div
-                  className="bg-bg1 size-5"
-                  // webpack build throws if I use custom tailwind classes to achive this
-                  style={{
-                    maskImage: 'url(/lk-logo.svg)',
-                    maskSize: 'contain',
-                  }}
-                />
+                <div className="flex size-11 items-center justify-center">
+                  <span
+                    className="font-extrabold leading-none text-black"
+                    style={{ fontSize: 32, transform: 'translateY(-1px)' }}
+                  >
+                    R
+                  </span>
+                </div>
               </motion.div>
             )}
             {(error || isAgentConnecting) && (
@@ -111,7 +128,12 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
                 <XIcon
                   size={20}
                   weight="bold"
-                  className={cn('text-fg0 size-5', error && 'text-destructive-foreground')}
+                  className={cn(
+                    'size-5',
+                    // show black while loading so it stands out on light gradient in dark mode
+                    isAgentConnecting ? 'text-black' : 'text-fg0',
+                    error && 'text-destructive-foreground'
+                  )}
                 />
               </motion.div>
             )}

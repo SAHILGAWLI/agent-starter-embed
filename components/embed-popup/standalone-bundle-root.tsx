@@ -17,6 +17,26 @@ const styleTag = document.createElement('style');
 styleTag.textContent = globalCss;
 shadowRoot.appendChild(styleTag);
 
+// Override the primary color palette for the popup only (scoped to the shadow root)
+// Adjust the shades below if you want a different orange.
+const colorOverrides = document.createElement('style');
+colorOverrides.textContent = `
+:root {
+  /* Yellow theme */
+  --primary: #facc15;       /* yellow-400 */
+  --primary-hover: #eab308; /* yellow-500 */
+  --fgAccent: #facc15;      /* drives trigger circle */
+  --bgAccentPrimary: color-mix(in oklab, #facc15 20%, white 80%);
+}
+.dark {
+  --primary: #facc15;
+  --primary-hover: #eab308;
+  --fgAccent: #facc15;
+  --bgAccentPrimary: color-mix(in oklab, #facc15 25%, black 75%);
+}
+`;
+shadowRoot.appendChild(colorOverrides);
+
 const reactRoot = document.createElement('div');
 shadowRoot.appendChild(reactRoot);
 

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Room, RoomEvent } from 'livekit-client';
 import { motion } from 'motion/react';
-import { RoomAudioRenderer, RoomContext, StartAudio } from '@livekit/components-react';
+import { RoomAudioRenderer, RoomContext } from '@livekit/components-react';
 import { XIcon } from '@phosphor-icons/react';
 import { PopupView } from '@/components/embed-popup/popup-view';
 import { Trigger } from '@/components/embed-popup/trigger';
@@ -164,4 +164,3 @@ function EmbedFixedAgentClient({ appConfig }: EmbedFixedAgentClientProps) {
 }
 
 export default EmbedFixedAgentClient;
-// EOF

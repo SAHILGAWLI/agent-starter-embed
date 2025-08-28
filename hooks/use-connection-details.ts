@@ -29,7 +29,10 @@ export default function useConnectionDetails() {
     const defaultOrigin = 'https://replinai-widget.vercel.app';
     const scriptOrigin = findScriptOrigin();
     const pageOrigin = typeof window !== 'undefined' ? window.location.origin : undefined;
-    const baseOrigin = scriptOrigin || (pageOrigin && pageOrigin !== 'null' ? pageOrigin : undefined) || defaultOrigin;
+    const baseOrigin =
+      scriptOrigin ||
+      (pageOrigin && pageOrigin !== 'null' ? pageOrigin : undefined) ||
+      defaultOrigin;
 
     const endpoint = process.env.NEXT_PUBLIC_CONN_DETAILS_ENDPOINT ?? '/api/connection-details';
     const finalUrl = (() => {

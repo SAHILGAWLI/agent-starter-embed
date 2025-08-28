@@ -30,7 +30,6 @@ type SessionViewProps = {
   onDisplayError: (err: EmbedErrorDetails) => void;
 };
 
-
 export const PopupView = ({
   disabled,
   sessionStarted,
@@ -176,7 +175,7 @@ export const PopupView = ({
             {/* StartAudio placed inside the controls so it doesn't flash top-left */}
             <StartAudio
               label="Start audio"
-              className="text-xs px-2 py-1 h-7 rounded-full bg-secondary text-secondary-foreground hover:bg-button-hover"
+              className="bg-secondary text-secondary-foreground hover:bg-button-hover h-7 rounded-full px-2 py-1 text-xs"
             />
             {visibleControls.microphone ? (
               <div className="flex items-center gap-0">

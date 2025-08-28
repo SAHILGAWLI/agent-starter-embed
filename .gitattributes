@@ -1,0 +1,17 @@
+# Enforce LF line endings across the repo
+* text=auto eol=lf
+
+# Explicitly enforce LF for common text file types
+*.{js,jsx,ts,tsx,css,scss,md,mdx,json,yml,yaml,html,tsx,tsconfig} text eol=lf
+
+# Do not modify line endings for binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+*.ico binary
+*.otf binary
+*.ttf binary
+*.woff binary
+*.woff2 binary

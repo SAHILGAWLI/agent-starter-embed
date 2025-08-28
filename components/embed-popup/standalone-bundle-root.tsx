@@ -57,6 +57,12 @@ themeRoot.appendChild(reactRoot);
 // as each script execution has its own closure; the last one wins for its own widget.
 window.__LK_EMBED_SHADOW_ROOT = shadowRoot;
 
+// Create a dedicated HTMLElement inside the shadow tree for portals.
+// Radix Portal expects an HTMLElement container (not a ShadowRoot).
+const portalRoot = document.createElement('div');
+themeRoot.appendChild(portalRoot);
+(window as Window).__LK_EMBED_PORTAL_EL = portalRoot;
+
 // Determine origin from the script that loaded this bundle so config resolves correctly when embedded
 function getScriptOrigin(): string {
   try {

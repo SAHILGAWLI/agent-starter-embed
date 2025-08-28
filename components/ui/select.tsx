@@ -62,11 +62,13 @@ function SelectContent({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   const portalContainer =
-    typeof window !== 'undefined' && window.__LK_EMBED_SHADOW_ROOT
-      ? window.__LK_EMBED_SHADOW_ROOT
-      : typeof document !== 'undefined'
-        ? document.body
-        : undefined;
+    typeof window !== 'undefined' && window.__LK_EMBED_PORTAL_EL
+      ? window.__LK_EMBED_PORTAL_EL
+      : typeof window !== 'undefined' && window.__LK_EMBED_SHADOW_ROOT
+        ? window.__LK_EMBED_SHADOW_ROOT as unknown as HTMLElement
+        : typeof document !== 'undefined'
+          ? document.body
+          : undefined;
   const inEmbed = typeof window !== 'undefined' && !!window.__LK_EMBED_SHADOW_ROOT;
   return (
     <SelectPrimitive.Portal container={portalContainer}>
@@ -88,7 +90,7 @@ function SelectContent({
             'data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1',
           className
         )}
-        position={inEmbed ? 'item-aligned' : position}
+        position={inEmbed ? 'popper' : position}
         side={props.side ?? 'top'}
         align={props.align ?? 'start'}
         avoidCollisions={false}

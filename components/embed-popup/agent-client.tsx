@@ -130,7 +130,7 @@ function EmbedFixedAgentClient({ appConfig }: EmbedFixedAgentClientProps) {
                 <span className="text-xs">{currentError?.description}</span>
               </div>
 
-              <Button variant="secondary" onClick={handleDismissError}>
+              <Button variant="outline" className="text-foreground" onClick={handleDismissError}>
                 <XIcon /> Dismiss
               </Button>
             </div>

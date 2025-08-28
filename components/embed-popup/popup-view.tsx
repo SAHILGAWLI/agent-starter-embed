@@ -193,13 +193,13 @@ export const PopupView = ({
                     barCount={3}
                     trackRef={micTrackRef}
                     options={{ minHeight: 5 }}
-                    className="flex h-full w-auto items-center justify-center gap-0.5"
+                    className="flex h-full w-auto items-center justify-center gap-1"
                   >
                     <span
                       className={cn([
-                        'h-full w-0.5 origin-center rounded-2xl',
-                        // ensure contrast on white
-                        'bg-fg1/60',
+                        'h-full w-1 origin-center rounded-2xl',
+                        // strong contrast on white
+                        'bg-fg1',
                         // on/off states override base; muted falls back to faint
                         'group-data-[state=on]/track:bg-fg1 group-data-[state=off]/track:bg-destructive-foreground',
                         'data-lk-muted:bg-fg1/30',

@@ -28,7 +28,8 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
     if (error) {
       return {
         backgroundColor: '#ef4444',
-        boxShadow: '0 0 0 2px #ef4444, 0 0 14px 4px rgba(239,68,68,0.35)',
+        // no glow: only a crisp red outline
+        boxShadow: '0 0 0 2px #ef4444',
       };
     }
     if (agentState === 'disconnected' || isAgentConnecting) {

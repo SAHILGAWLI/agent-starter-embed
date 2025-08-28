@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { useVoiceAssistant } from '@livekit/components-react';
 import { PhoneDisconnectIcon, XIcon } from '@phosphor-icons/react';
@@ -21,6 +22,21 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
     agentState !== 'disconnected' &&
     agentState !== 'connecting' &&
     agentState !== 'initializing';
+
+  // Compute inner circle style: explicit red glow when error, cyan outline when idle/connecting
+  const innerStyle = useMemo<React.CSSProperties | undefined>(() => {
+    if (error) {
+      return { boxShadow: '0 0 0 2px #ef4444, 0 0 14px 4px rgba(239,68,68,0.35)' };
+    }
+    if (agentState === 'disconnected' || isAgentConnecting) {
+      return {
+        background:
+          'radial-gradient(circle at 20% 80%, rgba(255,255,255,0.6), transparent 70%), linear-gradient(135deg, #e7f5ff 0%, #74c0fc 100%)',
+        boxShadow: isAgentConnecting ? '0 0 0 2px rgba(56,189,248,0.35)' : '0 0 0 2px #38BDF8',
+      };
+    }
+    return undefined;
+  }, [error, agentState, isAgentConnecting]);
 
   return (
     <AnimatePresence>
@@ -67,23 +83,7 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
             isAgentConnecting ? 'inset-[2px]' : 'inset-0',
             (error || isAgentConnected) && 'bg-destructive'
           )}
-          style={
-            // explicit styles per state to ensure visible outlines/glow
-            error
-              ? {
-                  boxShadow:
-                    '0 0 0 2px #ef4444, 0 0 14px 4px rgba(239,68,68,0.35)', // red outline + glow
-                }
-              : agentState === 'disconnected' || isAgentConnecting
-              ? {
-                  background:
-                    'radial-gradient(circle at 20% 80%, rgba(255,255,255,0.6), transparent 70%), linear-gradient(135deg, #e7f5ff 0%, #74c0fc 100%)',
-                  boxShadow: isAgentConnecting
-                    ? '0 0 0 2px rgba(56,189,248,0.35)'
-                    : '0 0 0 2px #38BDF8',
-                }
-              : undefined
-          }
+          style={innerStyle}
         >
           <AnimatePresence>
             {!error && isAgentConnected && (

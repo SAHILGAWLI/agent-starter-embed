@@ -43,7 +43,7 @@ export function ChatInput({ onSend, className, disabled, ...props }: ChatInputPr
         disabled={disabled}
         placeholder="Type something..."
         onChange={(e) => setMessage(e.target.value)}
-        className="w-0 shrink-1 grow-1 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+        className="w-0 shrink-1 grow-1 text-foreground placeholder:text-muted-foreground focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
       />
       <Button
         size="icon"

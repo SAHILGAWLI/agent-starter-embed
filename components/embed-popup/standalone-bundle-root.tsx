@@ -63,6 +63,9 @@ function applyAppearance(appearance: Appearance, root: ShadowRoot) {
       --bgAccentPrimary: #f5f5f5;
       --separator1: #e5e5e5;
       --separator2: #dddddd;
+      /* Stronger text contrast in pure light */
+      --foreground: oklch(0.18 0 0);          /* ~#2e2e2e */
+      --muted-foreground: oklch(0.42 0 0);    /* ~#6b6b6b */
       --background: oklch(1 0 0);
       --card: oklch(1 0 0);
       --popover: oklch(1 0 0);

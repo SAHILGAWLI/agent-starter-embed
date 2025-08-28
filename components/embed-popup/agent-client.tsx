@@ -124,8 +124,7 @@ function EmbedFixedAgentClient({ appConfig }: EmbedFixedAgentClientProps) {
                 currentError === null ? 'opacity-0' : 'opacity-100'
               )}
             >
-
-
+            
               <div className="flex w-full flex-col justify-center gap-1 overflow-auto px-4 text-center">
                 <span className="text-sm font-medium">{currentError?.title}</span>
                 <span className="text-xs">{currentError?.description}</span>

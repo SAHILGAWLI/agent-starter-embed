@@ -106,7 +106,9 @@ function applyTheme(pref: ThemePref | undefined, rootEl: HTMLElement) {
     const isDark = !!systemDark?.matches;
     rootEl.classList.toggle('dark', isDark);
     rootEl.classList.toggle('light', !isDark);
-    (rootEl as HTMLElement & { style: CSSStyleDeclaration }).style.colorScheme = isDark ? 'dark' : 'light';
+    (rootEl as HTMLElement & { style: CSSStyleDeclaration }).style.colorScheme = isDark
+      ? 'dark'
+      : 'light';
   }
 
   if (pref === 'dark') {

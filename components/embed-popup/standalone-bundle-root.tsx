@@ -51,6 +51,12 @@ shadowRoot.appendChild(themeRoot);
 const reactRoot = document.createElement('div');
 themeRoot.appendChild(reactRoot);
 
+// Expose the shadow root so internal components (e.g., dropdown portals)
+// can render within the same stacking/scrolling context when embedded.
+// This is scoped to the host page window and is safe for multiple embeds
+// as each script execution has its own closure; the last one wins for its own widget.
+(window as any).__LK_EMBED_SHADOW_ROOT = shadowRoot;
+
 // Determine origin from the script that loaded this bundle so config resolves correctly when embedded
 function getScriptOrigin(): string {
   try {

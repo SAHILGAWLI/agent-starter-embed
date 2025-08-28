@@ -61,8 +61,14 @@ function SelectContent({
   position = 'popper',
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
+  const portalContainer =
+    typeof window !== 'undefined' && (window as any).__LK_EMBED_SHADOW_ROOT
+      ? (window as any).__LK_EMBED_SHADOW_ROOT
+      : typeof document !== 'undefined'
+        ? document.body
+        : undefined;
   return (
-    <SelectPrimitive.Portal container={typeof document !== 'undefined' ? document.body : undefined}>
+    <SelectPrimitive.Portal container={portalContainer}>
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(

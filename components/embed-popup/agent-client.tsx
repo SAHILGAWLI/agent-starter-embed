@@ -123,16 +123,7 @@ function EmbedFixedAgentClient({ appConfig }: EmbedFixedAgentClientProps) {
                 currentError === null ? 'opacity-0' : 'opacity-100'
               )}
             >
-              <div className="pl-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/lk-logo.svg" alt="LiveKit Logo" className="block size-6 dark:hidden" />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/lk-logo-dark.svg"
-                  alt="LiveKit Logo"
-                  className="hidden size-6 dark:block"
-                />
-              </div>
+              {/* Removed LK logo from popup error overlay */}
 
               <div className="flex w-full flex-col justify-center gap-1 overflow-auto px-4 text-center">
                 <span className="text-sm font-medium">{currentError?.title}</span>

@@ -44,6 +44,32 @@ colorOverrides.textContent = `
 `;
 shadowRoot.appendChild(colorOverrides);
 
+type Appearance = 'default' | 'pure';
+
+function getAppearance(): Appearance {
+  const script = getLoaderScript();
+  const a = (script?.dataset?.appearance || '').toLowerCase();
+  return a === 'pure' ? 'pure' : 'default';
+}
+
+function applyAppearance(appearance: Appearance, root: ShadowRoot) {
+  if (appearance !== 'pure') return;
+  const style = document.createElement('style');
+  style.textContent = `
+    .light {
+      --bg1: #ffffff;
+      --bg2: #fafafa;
+      --bg3: #f2f2f2;
+      --background: oklch(1 0 0);
+      --card: oklch(1 0 0);
+      --popover: oklch(1 0 0);
+      --border: oklch(0.92 0 0);
+      --input: oklch(0.92 0 0);
+    }
+  `;
+  root.appendChild(style);
+}
+
 // A container inside the shadow DOM whose classList we control for theming
 const themeRoot = document.createElement('div');
 shadowRoot.appendChild(themeRoot);
@@ -144,8 +170,9 @@ function applyTheme(pref: ThemePref | undefined, rootEl: HTMLElement) {
   }
 }
 
-// Determine the requested theme and apply it within the shadow DOM
+// Determine the requested theme and appearance, then apply within the shadow DOM
 applyTheme(getRequestedTheme() ?? 'system', themeRoot);
+applyAppearance(getAppearance(), shadowRoot);
 
 getAppConfig(getScriptOrigin())
   .then((appConfig) => {

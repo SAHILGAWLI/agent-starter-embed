@@ -193,16 +193,13 @@ export const PopupView = ({
                     barCount={3}
                     trackRef={micTrackRef}
                     options={{ minHeight: 5 }}
-                    className="flex h-full w-auto items-center justify-center gap-1"
+                    className="flex h-full w-auto items-center justify-center gap-0.5"
                   >
                     <span
                       className={cn([
-                        'h-full w-1 origin-center rounded-2xl',
-                        // strong contrast on white
-                        'bg-fg1',
-                        // on/off states override base; muted falls back to faint
+                        'h-full w-0.5 origin-center rounded-2xl',
                         'group-data-[state=on]/track:bg-fg1 group-data-[state=off]/track:bg-destructive-foreground',
-                        'data-lk-muted:bg-fg1/30',
+                        'data-lk-muted:bg-muted',
                       ])}
                     ></span>
                   </BarVisualizer>
@@ -232,3 +229,5 @@ export const PopupView = ({
     </div>
   );
 };
+
+// keep trailing newline for Prettier

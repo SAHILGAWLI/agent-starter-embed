@@ -51,7 +51,7 @@ export function ChatInput({ onSend, className, disabled, ...props }: ChatInputPr
         variant={isDisabled ? 'secondary' : 'primary'}
         disabled={isDisabled}
         className={cn(
-          !isDisabled && 'bg-[#38bdf8] hover:bg-[#0ea5e9] focus:bg-[#0ea5e9] text-white'
+          !isDisabled && 'bg-[#38bdf8] text-white hover:bg-[#0ea5e9] focus:bg-[#0ea5e9]'
         )}
       >
         <PaperPlaneRightIcon weight="bold" />

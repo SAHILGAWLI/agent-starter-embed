@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import {
   type AgentState,
   BarVisualizer,
+  StartAudio,
   useRoomContext,
   useVoiceAssistant,
 } from '@livekit/components-react';
@@ -28,6 +29,7 @@ type SessionViewProps = {
   sessionStarted: boolean;
   onDisplayError: (err: EmbedErrorDetails) => void;
 };
+
 
 export const PopupView = ({
   disabled,
@@ -171,6 +173,11 @@ export const PopupView = ({
           className="bg-bg1 border-separator1 relative flex h-12 shrink-0 grow-0 items-center gap-1 rounded-full border px-1 drop-shadow-md"
         >
           <div className="flex gap-1">
+            {/* StartAudio placed inside the controls so it doesn't flash top-left */}
+            <StartAudio
+              label="Start audio"
+              className="text-xs px-2 py-1 h-7 rounded-full bg-secondary text-secondary-foreground hover:bg-button-hover"
+            />
             {visibleControls.microphone ? (
               <div className="flex items-center gap-0">
                 <TrackToggle

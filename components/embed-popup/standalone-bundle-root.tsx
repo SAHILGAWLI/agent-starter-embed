@@ -130,3 +130,4 @@ getAppConfig(getScriptOrigin())
   .catch((err) => {
     console.error('Error loading livekit embed-popup app config:', err);
   });
+// EOF

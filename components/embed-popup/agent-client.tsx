@@ -91,7 +91,6 @@ function EmbedFixedAgentClient({ appConfig }: EmbedFixedAgentClientProps) {
   return (
     <RoomContext.Provider value={room}>
       <RoomAudioRenderer />
-      <StartAudio label="Start Audio" />
 
       <Trigger error={!!currentError} popupOpen={popupOpen} onToggle={handleTogglePopup} />
 
@@ -165,3 +164,4 @@ function EmbedFixedAgentClient({ appConfig }: EmbedFixedAgentClientProps) {
 }
 
 export default EmbedFixedAgentClient;
+// EOF

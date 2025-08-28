@@ -62,12 +62,12 @@ function SelectContent({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   return (
-    <SelectPrimitive.Portal>
+    <SelectPrimitive.Portal container={typeof document !== 'undefined' ? document.body : undefined}>
       <SelectPrimitive.Content
         data-slot="select-content"
         className={cn(
           [
-            'bg-popover text-popover-foreground relative z-50 overflow-x-hidden overflow-y-auto rounded-md border drop-shadow-xl/5',
+            'bg-popover text-popover-foreground relative z-[9999] overflow-x-hidden overflow-y-auto rounded-md border drop-shadow-xl/5',
             'max-h-(--radix-select-content-available-height) min-w-[8rem]',
             'origin-(--radix-select-content-transform-origin)',
             'data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
@@ -82,6 +82,10 @@ function SelectContent({
           className
         )}
         position={position}
+        side={props.side ?? 'top'}
+        align={props.align ?? 'start'}
+        avoidCollisions={false}
+        sideOffset={6}
         {...props}
       >
         <SelectScrollUpButton />

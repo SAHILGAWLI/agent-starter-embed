@@ -104,8 +104,8 @@ export const PopupView = ({
       <div className="relative flex h-full shrink-1 grow-1 flex-col p-1">
         <motion.div
           className={cn(
-            'bg-bg2 dark:bg-bg1 pointer-events-none absolute z-10 flex aspect-[1.5] w-64 items-center justify-center rounded-2xl border border-separator2 dark:border-transparent transition-colors',
-            agentHasConnected && 'bg-bg1 border-separator2 dark:border-separator1 drop-shadow-2xl'
+            'bg-bg2 dark:bg-bg1 pointer-events-none absolute z-10 flex aspect-[1.5] w-64 items-center justify-center rounded-2xl border border-transparent transition-colors',
+            agentHasConnected && 'bg-bg1 border-separator1 drop-shadow-2xl'
           )}
           initial={{
             scale: 1,
@@ -168,7 +168,7 @@ export const PopupView = ({
 
         <div
           aria-label="Voice assistant controls"
-          className="bg-bg2 dark:bg-bg1 border-separator2 dark:border-separator1 relative flex h-12 shrink-0 grow-0 items-center gap-1 rounded-full border px-1 drop-shadow-lg ring-1 ring-black/5 dark:ring-0"
+          className="bg-bg1 border-separator1 relative flex h-12 shrink-0 grow-0 items-center gap-1 rounded-full border px-1 drop-shadow-md"
         >
           <div className="flex gap-1">
             {visibleControls.microphone ? (

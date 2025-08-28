@@ -50,6 +50,9 @@ export function ChatInput({ onSend, className, disabled, ...props }: ChatInputPr
         type="submit"
         variant={isDisabled ? 'secondary' : 'primary'}
         disabled={isDisabled}
+        className={cn(
+          !isDisabled && 'bg-[#38bdf8] hover:bg-[#0ea5e9] focus:bg-[#0ea5e9] text-white'
+        )}
       >
         <PaperPlaneRightIcon weight="bold" />
       </Button>

@@ -95,17 +95,6 @@ function EmbedFixedAgentClient({ appConfig }: EmbedFixedAgentClientProps) {
 
       <Trigger error={!!currentError} popupOpen={popupOpen} onToggle={handleTogglePopup} />
 
-      {/* Backdrop overlay for visual separation */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: popupOpen ? 1 : 0 }}
-        transition={{ type: 'tween', duration: 0.2 }}
-        className={cn(
-          'fixed inset-0 z-40 bg-black/40 backdrop-blur-sm',
-          popupOpen ? 'pointer-events-auto' : 'pointer-events-none'
-        )}
-      />
-
       <motion.div
         inert={!popupOpen}
         initial={{
@@ -121,12 +110,12 @@ function EmbedFixedAgentClient({ appConfig }: EmbedFixedAgentClientProps) {
           duration: 1,
           bounce: 0,
         }}
-        className={cn(
-          'fixed right-0 bottom-20 z-50 w-full px-4',
-          popupOpen ? 'pointer-events-auto' : 'pointer-events-none'
-        )}
+        className={cn('fixed right-0 bottom-20 z-50 w-full px-4', 'pointer-events-none')}
       >
-        <div className="bg-bg2 dark:bg-bg1 border-separator1 ml-auto h-[480px] w-full rounded-[28px] border drop-shadow-md md:max-w-[360px]">
+        <div
+          className="bg-bg2 dark:bg-bg1 border-separator1 ml-auto w-full rounded-[28px] border drop-shadow-md md:max-w-[360px] pointer-events-auto overflow-hidden"
+          style={{ height: 'min(480px, calc(100vh - 120px))' }}
+        >
           <div className="relative h-full w-full">
             <div
               inert={currentError === null}

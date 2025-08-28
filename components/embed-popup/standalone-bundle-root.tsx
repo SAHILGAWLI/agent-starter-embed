@@ -97,18 +97,25 @@ function applyTheme(pref: ThemePref | undefined, rootEl: HTMLElement) {
   // Remove both to reset
   rootEl.classList.remove('dark');
   rootEl.classList.remove('light');
+  // Reset color-scheme; will set it explicitly below
+  (rootEl as HTMLElement & { style: CSSStyleDeclaration }).style.colorScheme = '';
 
   const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
 
   function setFromSystem() {
-    rootEl.classList.toggle('dark', !!systemDark?.matches);
-    rootEl.classList.toggle('light', !systemDark?.matches);
+    const isDark = !!systemDark?.matches;
+    rootEl.classList.toggle('dark', isDark);
+    rootEl.classList.toggle('light', !isDark);
+    (rootEl as HTMLElement & { style: CSSStyleDeclaration }).style.colorScheme = isDark ? 'dark' : 'light';
   }
 
   if (pref === 'dark') {
     rootEl.classList.add('dark');
+    (rootEl as HTMLElement & { style: CSSStyleDeclaration }).style.colorScheme = 'dark';
   } else if (pref === 'light') {
-    rootEl.classList.add('light');
+    // Force light: ensure dark is removed and color-scheme is light.
+    rootEl.classList.remove('dark');
+    (rootEl as HTMLElement & { style: CSSStyleDeclaration }).style.colorScheme = 'light';
   } else {
     // system default
     setFromSystem();

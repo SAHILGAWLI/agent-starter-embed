@@ -143,9 +143,12 @@ export const PopupView = ({
           >
             <span
               className={cn([
-                'bg-muted min-h-6 w-6 rounded-full',
+                'min-h-6 w-6 rounded-full',
+                // base: faint foreground to ensure visibility on light backgrounds
+                'bg-fg1/20',
                 'origin-center transition-colors duration-250 ease-linear',
-                'data-[lk-highlighted=true]:bg-foreground data-[lk-muted=true]:bg-muted',
+                // highlighted: solid foreground; muted: faint foreground
+                'data-[lk-highlighted=true]:bg-fg1 data-[lk-muted=true]:bg-fg1/20',
               ])}
             />
           </BarVisualizer>
@@ -198,8 +201,11 @@ export const PopupView = ({
                     <span
                       className={cn([
                         'h-full w-0.5 origin-center rounded-2xl',
+                        // base faint bar color for visibility on white
+                        'bg-fg1/30',
+                        // on/off states override base; muted falls back to faint
                         'group-data-[state=on]/track:bg-fg1 group-data-[state=off]/track:bg-destructive-foreground',
-                        'data-lk-muted:bg-muted',
+                        'data-lk-muted:bg-fg1/30',
                       ])}
                     ></span>
                   </BarVisualizer>

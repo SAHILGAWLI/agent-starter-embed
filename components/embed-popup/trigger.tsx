@@ -68,7 +68,13 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
             (error || isAgentConnected) && 'bg-destructive'
           )}
           style={
-            !error && (agentState === 'disconnected' || isAgentConnecting)
+            // explicit styles per state to ensure visible outlines/glow
+            error
+              ? {
+                  boxShadow:
+                    '0 0 0 2px #ef4444, 0 0 14px 4px rgba(239,68,68,0.35)', // red outline + glow
+                }
+              : (agentState === 'disconnected' || isAgentConnecting)
               ? {
                   background:
                     'radial-gradient(circle at 20% 80%, rgba(255,255,255,0.6), transparent 70%), linear-gradient(135deg, #e7f5ff 0%, #74c0fc 100%)',

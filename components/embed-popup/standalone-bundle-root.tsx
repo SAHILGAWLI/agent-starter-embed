@@ -77,8 +77,18 @@ function getScriptOrigin(): string {
 
 // Locate the script element that loaded this bundle so we can read attributes like data-theme
 function getLoaderScript(): HTMLScriptElement | undefined {
+  // 1) The executing script (most reliable in prod)
+  const cs = (document.currentScript as HTMLScriptElement | null) ?? undefined;
+  if (cs && (cs.src?.includes('embed-popup.js') || cs.dataset?.theme)) {
+    return cs;
+  }
+  // 2) Any script whose src includes our bundle name
   const scripts = Array.from(document.getElementsByTagName('script')) as HTMLScriptElement[];
-  return scripts.find((s) => s.src.includes('embed-popup.js'));
+  const bySrc = scripts.find((s) => s.src.includes('embed-popup.js'));
+  if (bySrc) return bySrc;
+  // 3) Any script with data-theme set
+  const byData = scripts.find((s) => !!s.dataset?.theme);
+  return byData;
 }
 
 type ThemePref = 'dark' | 'light' | 'system';
@@ -119,11 +129,14 @@ function applyTheme(pref: ThemePref | undefined, rootEl: HTMLElement) {
 
   if (pref === 'dark') {
     rootEl.classList.add('dark');
+    rootEl.style.colorScheme = 'dark';
   } else if (pref === 'light') {
     rootEl.classList.add('light');
+    rootEl.style.colorScheme = 'light';
   } else {
     // system default
     setFromSystem();
+    rootEl.style.colorScheme = systemDark?.matches ? 'dark' : 'light';
     // keep synced if system changes
     if (systemDark && 'addEventListener' in systemDark) {
       systemDark.addEventListener('change', setFromSystem);

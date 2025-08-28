@@ -60,6 +60,9 @@ function applyAppearance(appearance: Appearance, root: ShadowRoot) {
       --bg1: #ffffff;
       --bg2: #fafafa;
       --bg3: #f2f2f2;
+      --bgAccentPrimary: #f5f5f5;
+      --separator1: #e5e5e5;
+      --separator2: #dddddd;
       --background: oklch(1 0 0);
       --card: oklch(1 0 0);
       --popover: oklch(1 0 0);
@@ -72,6 +75,10 @@ function applyAppearance(appearance: Appearance, root: ShadowRoot) {
 
 // A container inside the shadow DOM whose classList we control for theming
 const themeRoot = document.createElement('div');
+// Set base text color within the shadow tree so it doesn't inherit host page
+// foreground (fixes dark popup on light host and vice-versa)
+themeRoot.style.color = 'var(--foreground)';
+themeRoot.style.background = 'transparent';
 shadowRoot.appendChild(themeRoot);
 
 const reactRoot = document.createElement('div');

@@ -11,7 +11,8 @@ wrapper.setAttribute('id', 'lk-embed-wrapper');
 wrapper.style.position = 'fixed';
 wrapper.style.inset = '0';
 wrapper.style.zIndex = '2147483647';
-wrapper.style.pointerEvents = 'none';
+// Allow the shadow subtree to receive clicks (Trigger must be clickable when closed)
+wrapper.style.pointerEvents = 'auto';
 document.body.appendChild(wrapper);
 
 // Use a shadow root so that any relevant css classes don't leak out and effect the broader page

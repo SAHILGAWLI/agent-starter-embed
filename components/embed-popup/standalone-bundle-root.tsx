@@ -75,13 +75,17 @@ function getRequestedTheme(): ThemePref | undefined {
   try {
     // 1) data-theme attribute wins
     const dataAttr = (script?.dataset?.theme || '').toLowerCase();
-    if (dataAttr === 'dark' || dataAttr === 'light' || dataAttr === 'system') return dataAttr as ThemePref;
+    if (dataAttr === 'dark' || dataAttr === 'light' || dataAttr === 'system') {
+      return dataAttr as ThemePref;
+    }
 
     // 2) ?theme= query param
     if (script?.src) {
       const url = new URL(script.src);
       const q = (url.searchParams.get('theme') || '').toLowerCase();
-      if (q === 'dark' || q === 'light' || q === 'system') return q as ThemePref;
+      if (q === 'dark' || q === 'light' || q === 'system') {
+        return q as ThemePref;
+      }
     }
   } catch {}
   // 3) no explicit preference

@@ -64,11 +64,9 @@ function SelectContent({
   const portalContainer =
     typeof window !== 'undefined' && window.__LK_EMBED_PORTAL_EL
       ? window.__LK_EMBED_PORTAL_EL
-      : typeof window !== 'undefined' && window.__LK_EMBED_SHADOW_ROOT
-        ? window.__LK_EMBED_SHADOW_ROOT as unknown as HTMLElement
-        : typeof document !== 'undefined'
-          ? document.body
-          : undefined;
+      : typeof document !== 'undefined'
+        ? document.body
+        : undefined;
   const inEmbed = typeof window !== 'undefined' && !!window.__LK_EMBED_SHADOW_ROOT;
   return (
     <SelectPrimitive.Portal container={portalContainer}>

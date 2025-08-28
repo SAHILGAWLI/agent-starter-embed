@@ -62,8 +62,8 @@ function SelectContent({
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Content>) {
   const portalContainer =
-    typeof window !== 'undefined' && (window as any).__LK_EMBED_SHADOW_ROOT
-      ? (window as any).__LK_EMBED_SHADOW_ROOT
+    typeof window !== 'undefined' && window.__LK_EMBED_SHADOW_ROOT
+      ? window.__LK_EMBED_SHADOW_ROOT
       : typeof document !== 'undefined'
         ? document.body
         : undefined;

@@ -113,7 +113,7 @@ function EmbedFixedAgentClient({ appConfig }: EmbedFixedAgentClientProps) {
         className={cn('fixed right-0 bottom-20 z-50 w-full px-4', 'pointer-events-none')}
       >
         <div
-          className="bg-bg2 dark:bg-bg1 pointer-events-auto ml-auto w-full overflow-hidden rounded-[28px] border border-separator1 drop-shadow-md md:max-w-[360px]"
+          className="bg-bg2 dark:bg-bg1 border-separator1 pointer-events-auto ml-auto w-full overflow-hidden rounded-[28px] border drop-shadow-md md:max-w-[360px]"
           style={{ height: 'min(480px, calc(100vh - 120px))' }}
         >
           <div className="relative h-full w-full">

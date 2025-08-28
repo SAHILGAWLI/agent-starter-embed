@@ -26,7 +26,10 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
   // Compute inner circle style: explicit red glow when error, cyan outline when idle/connecting
   const innerStyle = useMemo<React.CSSProperties | undefined>(() => {
     if (error) {
-      return { boxShadow: '0 0 0 2px #ef4444, 0 0 14px 4px rgba(239,68,68,0.35)' };
+      return {
+        backgroundColor: '#ef4444',
+        boxShadow: '0 0 0 2px #ef4444, 0 0 14px 4px rgba(239,68,68,0.35)',
+      };
     }
     if (agentState === 'disconnected' || isAgentConnecting) {
       return {
@@ -134,7 +137,7 @@ export function Trigger({ error = false, popupOpen, onToggle }: TriggerProps) {
                     'size-5',
                     // show black while loading so it stands out on light gradient in dark mode
                     isAgentConnecting ? 'text-black' : 'text-fg0',
-                    error && 'text-destructive-foreground'
+                    error && 'text-white'
                   )}
                 />
               </motion.div>

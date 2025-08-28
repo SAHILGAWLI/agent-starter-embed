@@ -113,7 +113,7 @@ function EmbedFixedAgentClient({ appConfig }: EmbedFixedAgentClientProps) {
         className={cn('fixed right-0 bottom-20 z-50 w-full px-4', 'pointer-events-none')}
       >
         <div
-          className="bg-bg1 dark:bg-bg1 border-separator2 pointer-events-auto ml-auto w-full overflow-hidden rounded-[28px] border drop-shadow-lg md:max-w-[360px] ring-1 ring-black/5 dark:ring-0"
+          className="bg-bg2 dark:bg-bg1 border-separator1 pointer-events-auto ml-auto w-full overflow-hidden rounded-[28px] border drop-shadow-md md:max-w-[360px]"
           style={{ height: 'min(480px, calc(100vh - 120px))' }}
         >
           <div className="relative h-full w-full">
@@ -124,10 +124,22 @@ function EmbedFixedAgentClient({ appConfig }: EmbedFixedAgentClientProps) {
                 currentError === null ? 'opacity-0' : 'opacity-100'
               )}
             >
+              <div className="pl-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/lk-logo.svg" alt="LiveKit Logo" className="block size-6 dark:hidden" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/lk-logo-dark.svg"
+                  alt="LiveKit Logo"
+                  className="hidden size-6 dark:block"
+                />
+              </div>
+
               <div className="flex w-full flex-col justify-center gap-1 overflow-auto px-4 text-center">
                 <span className="text-sm font-medium">{currentError?.title}</span>
                 <span className="text-xs">{currentError?.description}</span>
               </div>
+
               <Button variant="secondary" onClick={handleDismissError}>
                 <XIcon /> Dismiss
               </Button>

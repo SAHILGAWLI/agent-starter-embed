@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from 'motion/react';
 import {
   type AgentState,
   BarVisualizer,
-  StartAudio,
   useRoomContext,
   useVoiceAssistant,
 } from '@livekit/components-react';
@@ -53,6 +52,13 @@ export const PopupView = ({
   const onSend = (message: string) => send(message);
 
   useDebugMode();
+
+  // One-time log to indicate audio init is handled without visible UI
+  useEffect(() => {
+    if (!sessionStarted) return;
+    // Keep a subtle console message for developers; no UI element is shown
+    console.log('[popup] StartAudio UI suppressed; audio will initialize on user interaction.');
+  }, [sessionStarted]);
 
   // If the agent hasn't connected after an interval,
   // then show an error - something must not be working
@@ -172,11 +178,7 @@ export const PopupView = ({
           className="bg-bg1 border-separator1 relative flex h-12 shrink-0 grow-0 items-center gap-1 rounded-full border px-1 drop-shadow-md"
         >
           <div className="flex gap-1">
-            {/* StartAudio placed inside the controls so it doesn't flash top-left */}
-            <StartAudio
-              label="Start audio"
-              className="bg-secondary text-secondary-foreground hover:bg-button-hover h-7 rounded-full px-2 py-1 text-xs"
-            />
+            {/* StartAudio UI removed for cleaner UX; audio will start on first interaction */}
             {visibleControls.microphone ? (
               <div className="flex items-center gap-0">
                 <TrackToggle
